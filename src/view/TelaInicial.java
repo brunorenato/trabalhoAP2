@@ -39,6 +39,12 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItemClientesCadastrar = new javax.swing.JMenuItem();
         jMenuItemClientesListar = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItemCategoriasCadastrar = new javax.swing.JMenuItem();
+        jMenuItemCategoriasListar = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItemProdutosCadastrar = new javax.swing.JMenuItem();
+        jMenuItemProdutosListar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Loja da Turma ADS3M192");
@@ -111,6 +117,46 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu4.setText("Categorias");
+
+        jMenuItemCategoriasCadastrar.setText("Cadastrar");
+        jMenuItemCategoriasCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCategoriasCadastrarActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItemCategoriasCadastrar);
+
+        jMenuItemCategoriasListar.setText("Listar");
+        jMenuItemCategoriasListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCategoriasListarActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItemCategoriasListar);
+
+        jMenuBar1.add(jMenu4);
+
+        jMenu5.setText("Produtos");
+
+        jMenuItemProdutosCadastrar.setText("Cadastrar");
+        jMenuItemProdutosCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemProdutosCadastrarActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItemProdutosCadastrar);
+
+        jMenuItemProdutosListar.setText("Listar");
+        jMenuItemProdutosListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemProdutosListarActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItemProdutosListar);
+
+        jMenuBar1.add(jMenu5);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -157,6 +203,30 @@ public class TelaInicial extends javax.swing.JFrame {
         tela.setVisible(true);
     }//GEN-LAST:event_jMenuItemCidadesListarActionPerformed
 
+    private void jMenuItemCategoriasCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCategoriasCadastrarActionPerformed
+        FrmCategorias tela = new FrmCategorias();
+        jdpPainelInicial.add(tela);
+        tela.setVisible(true);
+    }//GEN-LAST:event_jMenuItemCategoriasCadastrarActionPerformed
+
+    private void jMenuItemCategoriasListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCategoriasListarActionPerformed
+        ListCategorias tela = new ListCategorias( jdpPainelInicial );
+        jdpPainelInicial.add( tela );
+        tela.setVisible(true);
+    }//GEN-LAST:event_jMenuItemCategoriasListarActionPerformed
+
+    private void jMenuItemProdutosCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemProdutosCadastrarActionPerformed
+        FrmProdutos tela = new FrmProdutos();
+        jdpPainelInicial.add(tela);
+        tela.setVisible(true);
+    }//GEN-LAST:event_jMenuItemProdutosCadastrarActionPerformed
+
+    private void jMenuItemProdutosListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemProdutosListarActionPerformed
+        ListProdutos tela = new ListProdutos( jdpPainelInicial );
+        jdpPainelInicial.add( tela );
+        tela.setVisible(true);
+    }//GEN-LAST:event_jMenuItemProdutosListarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -196,12 +266,18 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItemCategoriasCadastrar;
+    private javax.swing.JMenuItem jMenuItemCategoriasListar;
     private javax.swing.JMenuItem jMenuItemCidadesCadastrar;
     private javax.swing.JMenuItem jMenuItemCidadesListar;
     private javax.swing.JMenuItem jMenuItemClientesCadastrar;
     private javax.swing.JMenuItem jMenuItemClientesListar;
+    private javax.swing.JMenuItem jMenuItemProdutosCadastrar;
+    private javax.swing.JMenuItem jMenuItemProdutosListar;
     private javax.swing.JMenuItem jMenuItemSair;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JDesktopPane jdpPainelInicial;

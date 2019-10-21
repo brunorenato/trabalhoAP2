@@ -19,7 +19,7 @@ public class CategoriaDAO {
     }
     
     public static void editar(Categoria categoria){
-        String query = "UPDATE categoria SET "
+        String query = "UPDATE categorias SET "
                      + " nome =  '" + categoria.getNome() + "' "
                      + " WHERE id = " + categoria.getId();
         Conexao.executar( query );

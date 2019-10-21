@@ -40,14 +40,15 @@ public class ListProdutos extends javax.swing.JInternalFrame {
     // método público para que ao editar um produto, possa ser recarregada a tabela de produtos
     public void carregarTabela(){
         List<Produto> lista = ProdutoDAO.getProdutos();
-        String[] colunas = {"Código" , "Nome"};
+        String[] colunas = {"Código" , "Nome", "Quantidade", "Preco", "Categoria"};
        
         
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers( colunas );
        
         for (Produto produto : lista) {
-            Object[] linha = { produto.getId(), produto.getNome() };
+            Object[] linha = { produto.getId(), produto.getNome(),
+                produto.getQuantidade(), produto.getPreco(), produto.getCategoria() };
             model.addRow( linha );
         }
         
@@ -65,8 +66,14 @@ public class ListProdutos extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tableProdutos = new javax.swing.JTable();
-        btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setTitle("Lista de Produtos");
 
         tableProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -78,17 +85,17 @@ public class ListProdutos extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tableProdutos);
 
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
-
         btnExcluir.setText("EXCLUIR");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirActionPerformed(evt);
+            }
+        });
+
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
             }
         });
 
@@ -97,8 +104,8 @@ public class ListProdutos extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 832, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnExcluir)
                     .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -108,30 +115,17 @@ public class ListProdutos extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(90, 90, 90)
                 .addComponent(btnExcluir)
-                .addGap(151, 151, 151)
+                .addGap(129, 129, 129)
                 .addComponent(btnEditar)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        int linha = tableProdutos.getSelectedRow();
-        if( linha < 0 ){
-            JOptionPane.showMessageDialog(this,
-                "Você deve selecionar um produto");
-        }else{
-            int idProduto = (int) tableProdutos.getValueAt(linha, 0);
-            FrmProdutos tela = new FrmProdutos( idProduto, this );
-            jdpPainelTelaInicial.add( tela );
-            tela.setVisible( true );
-        }
-    }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         int linha = tableProdutos.getSelectedRow();
@@ -151,6 +145,20 @@ public class ListProdutos extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        int linha = tableProdutos.getSelectedRow();
+        if( linha < 0 ){
+            JOptionPane.showMessageDialog(this,
+                "Você deve selecionar um produto");
+        }else{
+            int idProduto = (int) tableProdutos.getValueAt(linha, 0);
+            int idCategoria = (int) tableProdutos.getValueAt(linha, 4);
+            FrmProdutos tela = new FrmProdutos( idProduto, this );
+            jdpPainelTelaInicial.add( tela );
+            tela.setVisible( true );
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

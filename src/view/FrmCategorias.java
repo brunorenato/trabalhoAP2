@@ -72,7 +72,7 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(51, 248, 245));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Nome da cidade: ");
+        jLabel1.setText("Nome da categoria: ");
 
         btnSalvar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnSalvar.setText("SALVAR");
