@@ -155,12 +155,12 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
             // que recebe uma cidade do banco e preenche o formulário para poder
             // editar uma categoria
             if( categoria == null ){
-                categoria = new Categoria();
+                Categoria categoria = new Categoria();
                 categoria.setNome( nome );
                 CategoriaDAO.inserir( categoria );
 
-                // Só limpar
-                txtNome.setText("");
+                limpar();
+                
             }else{
                 categoria.setNome( nome );
                 CategoriaDAO.editar( categoria );
@@ -175,6 +175,10 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
 
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
+    
+    private void limpar() {
+        txtNome.setText("");        
+    }   
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

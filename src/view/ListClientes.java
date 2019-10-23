@@ -84,12 +84,12 @@ public class ListClientes extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         buttonGroupTipo = new javax.swing.ButtonGroup();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableClientes = new javax.swing.JTable();
         btnExcluir = new javax.swing.JButton();
         rbTodos = new javax.swing.JRadioButton();
         rbPF = new javax.swing.JRadioButton();
         rbPJ = new javax.swing.JRadioButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableClientes = new javax.swing.JTable();
 
         setClosable(true);
         setIconifiable(true);
@@ -97,16 +97,6 @@ public class ListClientes extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("Lista de Clientes");
         setPreferredSize(new java.awt.Dimension(1000, 700));
-
-        tableClientes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Código", "Nome", "Idade"
-            }
-        ));
-        jScrollPane1.setViewportView(tableClientes);
 
         btnExcluir.setText("EXCLUIR");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -140,23 +130,39 @@ public class ListClientes extends javax.swing.JInternalFrame {
             }
         });
 
+        tableClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Nome", "Idade"
+            }
+        ));
+        jScrollPane1.setViewportView(tableClientes);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(btnExcluir)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnExcluir))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(rbTodos)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbPF)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbPJ)
+                        .addGap(0, 721, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(rbTodos)
-                .addGap(18, 18, 18)
-                .addComponent(rbPF)
-                .addGap(18, 18, 18)
-                .addComponent(rbPJ)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 866, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(108, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,14 +171,14 @@ public class ListClientes extends javax.swing.JInternalFrame {
                     .addComponent(rbTodos)
                     .addComponent(rbPF)
                     .addComponent(rbPJ))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(btnExcluir)
-                        .addGap(0, 217, Short.MAX_VALUE))))
+                .addGap(67, 67, 67)
+                .addComponent(btnExcluir)
+                .addGap(0, 557, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(45, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(122, Short.MAX_VALUE)))
         );
 
         pack();

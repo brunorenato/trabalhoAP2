@@ -20,7 +20,7 @@ import model.ClientePJ;
  * @author assparremberger
  */
 public class FrmClientes extends javax.swing.JInternalFrame {
-
+    
     /**
      * Creates new form FrmClientes
      */

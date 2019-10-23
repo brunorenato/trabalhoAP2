@@ -153,7 +153,7 @@ public class FrmCidades extends javax.swing.JInternalFrame {
             // que recebe uma cidade do banco e preenche o formulário para poder
             // editar uma cidade
             if( cidade == null ){
-                cidade = new Cidade();
+                Cidade cidade = new Cidade();
                 cidade.setNome( nome );
                 CidadeDAO.inserir( cidade );
                 
