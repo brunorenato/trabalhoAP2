@@ -48,6 +48,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Loja da Turma ADS3M192");
+        setPreferredSize(new java.awt.Dimension(1200, 760));
 
         javax.swing.GroupLayout jdpPainelInicialLayout = new javax.swing.GroupLayout(jdpPainelInicial);
         jdpPainelInicial.setLayout(jdpPainelInicialLayout);

@@ -153,7 +153,6 @@ public class ListProdutos extends javax.swing.JInternalFrame {
                 "Você deve selecionar um produto");
         }else{
             int idProduto = (int) tableProdutos.getValueAt(linha, 0);
-            int idCategoria = (int) tableProdutos.getValueAt(linha, 4);
             FrmProdutos tela = new FrmProdutos( idProduto, this );
             jdpPainelTelaInicial.add( tela );
             tela.setVisible( true );

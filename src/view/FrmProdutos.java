@@ -169,8 +169,9 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
     // usuário pensará que não salvou a alteração no banco
     public FrmProdutos(int idProduto, ListProdutos telaListProdutos) {
         initComponents();
-        lblCodigo.setVisible(false);
-        lblCodigoValor.setVisible(false);
+        lblCodigo.setVisible( true );
+        lblCodigoValor.setVisible( true );
+        carregarCategorias();
         carregarFormulario( idProduto );
         this.telaListProdutos = telaListProdutos;
     }
@@ -181,7 +182,15 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         txtNome.setText( produto.getNome() );
         txtQuantidade.setText( String.valueOf (produto.getQuantidade() ) );
         txtPreco.setText( String.valueOf ( produto.getPreco() ) );
-        cmbCategoria.setSelectedItem ( produto.getCategoria() );
+        
+        List<Categoria> listaCategorias = CategoriaDAO.getCategorias();
+        for(int i = 0; i<listaCategorias.size(); i++){
+            if (listaCategorias.get(i).getId() == produto.getCategoria().getId()){
+                //System.out.println("Catlista:  "+listaCategorias.get(i).getId()+ " Cat: "+produto.getCategoria().getId());
+                cmbCategoria.setSelectedIndex( i + 1 );
+                break;
+            }
+        }      
     }
     
     private void carregarCategorias(){
@@ -220,16 +229,41 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
                 "Você esqueceu de preencher os seguintes campos:\n"
                 + erro );
         }else{
-
-                Produto p = new Produto();
-                p.setNome( nome );
-                p.setQuantidade( Double.parseDouble( txtQuantidade.getText()) );
-                p.setPreco( Double.parseDouble( txtPreco.getText()) );
-                p.setCategoria( cat );
-                ProdutoDAO.inserir( p );
             
+            // se cidade for igual a NULL então significa que o formulário está
+            // sendo usado para cadastrar uma nova cidade
+            // se não for NULL então significa que passou pelo método construtor
+            // que recebe uma cidade do banco e preenche o formulário para poder
+            // editar uma cidade
+            if( produto == null ){
+
+                Produto produto = new Produto();
+                produto.setNome( nome );
+                produto.setQuantidade( Double.parseDouble( txtQuantidade.getText()) );
+                produto.setPreco( Double.parseDouble( txtPreco.getText()) );
+                produto.setCategoria( cat );
+                ProdutoDAO.inserir( produto );
+            
+                limpar();
+                
+            }else{
+                
+                produto.setNome( nome );
+                produto.setQuantidade( Double.parseDouble( txtQuantidade.getText()) );
+                produto.setPreco( Double.parseDouble( txtPreco.getText()) );
+                produto.setCategoria( cat );
+                ProdutoDAO.editar( produto );
+                
+                // Assim que o produto for editado, a tabela na tela ListProdutos 
+                // será recarregado
+                
+                telaListProdutos.carregarTabela();
+                
+                //Fechar a tela
+                this.dispose();
             }
-        limpar();
+            
+        }
     }
 
     private void limpar() {

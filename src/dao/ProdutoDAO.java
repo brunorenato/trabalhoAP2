@@ -16,8 +16,8 @@ public class ProdutoDAO {
         String query = "INSERT INTO produtos "
             + " (nome, quantidade, preco, codCategoria )"
             + " VALUES ( '" + produto.getNome()           + "' , "
-                     + " '" + produto.getQuantidade()          + "' , "
-                     + " '" + produto.getPreco()            + "' , "
+                     + "  " + produto.getQuantidade()          + "  , "
+                     + "  " + produto.getPreco()            + "  , "
                      + "  " + produto.getCategoria().getId() + " ) ";
         Conexao.executar( query );
     }
@@ -25,8 +25,8 @@ public class ProdutoDAO {
     public static void editar(Produto produto){
         String query = "UPDATE produtos SET "
             + " nome =        '" + produto.getNome()           + "' , "
-            + " quantidade =       '" + produto.getQuantidade()          + "' , "
-            + " preco =    '" + produto.getPreco()            + "' , "
+            + " quantidade =        " + produto.getQuantidade()          + " , "
+            + " preco =     " + produto.getPreco()            + " , "
             + " codCategoria =    " + produto.getCategoria().getId() + "    "
             + " WHERE id = " + produto.getId();
         Conexao.executar( query );
@@ -77,7 +77,7 @@ public class ProdutoDAO {
                 + " FROM produtos p "
                 + " INNER JOIN categorias c "
                 + " ON p.codcategoria = c.id "
-                + " WHERE id = " + idProduto;;
+                + " WHERE p.id = " + idProduto;
         
         ResultSet rs = Conexao.consultar( query );
         if( rs != null){

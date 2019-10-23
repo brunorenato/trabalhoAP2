@@ -157,8 +157,8 @@ public class FrmCidades extends javax.swing.JInternalFrame {
                 cidade.setNome( nome );
                 CidadeDAO.inserir( cidade );
                 
-                // Só limpar
-                txtNome.setText("");
+                limpar();
+
             }else{
                 cidade.setNome( nome );
                 CidadeDAO.editar(cidade );
@@ -173,7 +173,10 @@ public class FrmCidades extends javax.swing.JInternalFrame {
             
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
-
+    
+    private void limpar() {
+        txtNome.setText("");        
+    }   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
