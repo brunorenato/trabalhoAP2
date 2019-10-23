@@ -18,12 +18,19 @@ import model.Produto;
  * @author 631420395
  */
 public class FrmProdutos extends javax.swing.JInternalFrame {
-
+    
+    private Produto produto;
+    
+    private ListProdutos telaListProdutos;
+    
     /**
      * Creates new form FrmProdutos
      */
     public FrmProdutos() {
         initComponents();
+        lblCodigo.setVisible(false);
+        lblCodigoValor.setVisible(false);
+        carregarCategorias();
     }
 
     /**
@@ -42,11 +49,17 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         txtPreco = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        cmbCidade = new javax.swing.JComboBox<>();
+        cmbCategoria = new javax.swing.JComboBox<>();
         btnSalvar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         txtQuantidade = new javax.swing.JTextField();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setTitle("Formulário de Produtos");
 
         lblCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblCodigo.setText("Código: ");
@@ -61,9 +74,9 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         jLabel7.setText("Preço:");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel8.setText("Cidade:");
+        jLabel8.setText("Categoria:");
 
-        cmbCidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Alvorada", "Canoas", "Capão da Canoa", "Porto Alegre", "Viamão" }));
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Alvorada", "Canoas", "Capão da Canoa", "Porto Alegre", "Viamão" }));
 
         btnSalvar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnSalvar.setText("SALVAR");
@@ -97,7 +110,7 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbCidade, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cmbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblCodigo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -139,7 +152,7 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(cmbCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
@@ -150,29 +163,56 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // Este método Construtor recebe o id da Cidade que será editada e a 
+    // referência da tela ListCidades que chamou este formulário, para que ao 
+    // final da edição a tebela no ListCidades possa ser atualizada, senão o 
+    // usuário pensará que não salvou a alteração no banco
+    public FrmProdutos(int idProduto, ListProdutos telaListProdutos) {
+        initComponents();
+        lblCodigo.setVisible(false);
+        lblCodigoValor.setVisible(false);
+        carregarFormulario( idProduto );
+        this.telaListProdutos = telaListProdutos;
+    }
+    
+    private void carregarFormulario( int idProduto ){
+        produto = ProdutoDAO.getProdutoById( idProduto );
+        lblCodigoValor.setText( String.valueOf( produto.getId() ) );
+        txtNome.setText( produto.getNome() );
+        txtQuantidade.setText( String.valueOf (produto.getQuantidade() ) );
+        txtPreco.setText( String.valueOf ( produto.getPreco() ) );
+        cmbCategoria.setSelectedItem ( produto.getCategoria() );
+    }
+    
+    private void carregarCategorias(){
+        List<Categoria> listaCategorias = CategoriaDAO.getCategorias();
+        
+//        JOptionPane.showMessageDialog(null, 
+//                "total de categorias: " + listaCategorias.size());
+       
+        DefaultComboBoxModel model = 
+                new DefaultComboBoxModel();
+        Categoria fake = new Categoria();
+        fake.setId(0);
+        fake.setNome("Selecione...");
+        model.addElement(fake); 
+        
+        for (Categoria categoria : listaCategorias) {
+            model.addElement( categoria );
+        }
+        cmbCategoria.setModel( model );
+        
+    }
+    
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         String nome = txtNome.getText();
-        Cidade cid = (Cidade) cmbCidade.getSelectedItem();
+        Categoria cat = (Categoria) cmbCategoria.getSelectedItem();
         String erro = "";
         if( nome.isEmpty() ){
             erro += "Nome\n";
         }
-        if( cid.getId() == 0 ){
-            erro += "Cidade\n";
-        }
-        String cpf_cnpj = "";
-        if( rbPF.isSelected() ){
-            cpf_cnpj = txtCPF.getText();
-            if( cpf_cnpj.substring(13, 14).equals(" ")){
-                erro += "CPF\n";
-            }
-        }else if( rbPJ.isSelected() ){
-            cpf_cnpj = txtCNPJ.getText();
-            if( cpf_cnpj.substring(17, 18).equals(" ")){
-                erro += "CNPJ\n";
-            }
-        }else{
-            erro += "Tipo de Pessoa\n";
+        if( cat.getId() == 0 ){
+            erro += "Categoria\n";
         }
 
         if( ! erro.isEmpty() ){
@@ -181,35 +221,29 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
                 + erro );
         }else{
 
-            if( rbPF.isSelected() ){
-                ClientePF pf = new ClientePF();
-                pf.setCpf( cpf_cnpj );
-                pf.setTipo( Cliente.PESSOA_FISICA );
-                pf.setNome( nome );
-                pf.setEmail( txtEmail.getText() );
-                pf.setReceberEmail( cbEmail.isSelected() );
-                pf.setCidade( cid );
-                ClienteDAO.inserir( pf );
-            }else{
-                ClientePJ pj = new ClientePJ();
-                pj.setCnpj( cpf_cnpj );
-                pj.setTipo( Cliente.PESSOA_JURIDICA );
-                pj.setNome( nome );
-                pj.setEmail( txtEmail.getText() );
-                pj.setReceberEmail( cbEmail.isSelected() );
-                pj.setCidade( cid );
-                ClienteDAO.inserir(pj );
+                Produto p = new Produto();
+                p.setNome( nome );
+                p.setQuantidade( Double.parseDouble( txtQuantidade.getText()) );
+                p.setPreco( Double.parseDouble( txtPreco.getText()) );
+                p.setCategoria( cat );
+                ProdutoDAO.inserir( p );
+            
             }
-            limpar();
-        }
+        limpar();
+    }
 
+    private void limpar() {
+        txtNome.setText("");
+        txtQuantidade.setText("");
+        txtPreco.setText("");
+        cmbCategoria.setSelectedIndex( 0 );
+        
     }//GEN-LAST:event_btnSalvarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JComboBox<String> cmbCidade;
+    private javax.swing.JComboBox<String> cmbCategoria;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
